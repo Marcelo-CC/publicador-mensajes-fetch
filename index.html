@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="description" content="Publicador de mensajes con JavaScript asíncrono, Fetch y DOM.">
+  <meta name="theme-color" content="#edf2ff">
+  <title>Publicador de mensajes</title>
+  <link rel="stylesheet" href="estilos.css">
+  <script src="app.js" defer></script>
+</head>
+<body>
+  <div class="fondo" aria-hidden="true"><div class="orbita orbita-uno"></div><div class="orbita orbita-dos"></div><div class="orbita orbita-tres"></div></div>
+  <main class="contenedor">
+    <header class="cabecera">
+      <div class="barra-superior">
+        <div class="identidad">
+          <span class="icono-app" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><path d="M20 11.5a8 8 0 0 1-8 8H5l-4 3 2-6a8 8 0 1 1 17-5Z"/><path d="M8 10h8M8 14h5"/></svg>
+          </span>
+          <span>Mensajes<small>Ingeniería web</small></span>
+        </div>
+        <span class="sello">API de prueba</span>
+      </div>
+      <p class="etiqueta">Crea · Envía · Recibe</p>
+      <h1>Publicador<br>de mensajes<span class="punto">.</span></h1>
+      <p class="introduccion">Tu idea empieza aquí. Escribe un título y un contenido para publicar.</p>
+    </header>
+
+    <section id="panel-redactar" class="panel" role="tabpanel" aria-labelledby="tab-redactar">
+      <div class="tarjeta">
+        <div class="titulo-tarjeta"><h2>Nueva publicación</h2><span class="paso">01</span></div>
+        <p class="ayuda">Ambos campos son obligatorios.</p>
+        <form id="formulario" novalidate aria-busy="false">
+          <div class="campo">
+            <label for="titulo">Título</label>
+            <input id="titulo" name="title" type="text" required
+                   placeholder="Ponle un título a tu idea" aria-describedby="error-titulo">
+            <p id="error-titulo" class="error-campo"></p>
+          </div>
+          <div class="campo">
+            <label for="contenido">Contenido</label>
+            <textarea id="contenido" name="body" rows="5" required
+                      placeholder="¿Qué quieres compartir?" aria-describedby="error-contenido"></textarea>
+            <p id="error-contenido" class="error-campo"></p>
+          </div>
+          <button id="publicar" class="boton-publicar" type="submit" disabled>
+            <span id="indicador-carga" class="indicador-carga" aria-hidden="true" hidden></span>
+            <span id="texto-boton">Publicar mensaje</span>
+            <svg class="flecha-envio" viewBox="0 0 24 24" aria-hidden="true"><path d="m5 12 14 0M13 6l6 6-6 6"/></svg>
+          </button>
+        </form>
+        <noscript><p class="estado" data-tipo="error">Activa JavaScript para utilizar esta aplicación.</p></noscript>
+      </div>
+    </section>
+
+    <section id="panel-respuesta" class="panel" role="tabpanel" aria-labelledby="tab-respuesta" tabindex="-1" hidden>
+      <div class="tarjeta">
+        <div id="respuesta-vacia" class="respuesta-vacia">
+          <span class="icono-vacio" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 3h14a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H8l-5 3V5a2 2 0 0 1 2-2Z"/><path d="M8 8h8M8 12h5"/></svg></span>
+          <h2>Tu respuesta aparecerá aquí</h2>
+          <p>Redacta una publicación y envíala para ver los datos devueltos por la API.</p>
+        </div>
+        <div id="resultado" class="resultado" hidden>
+          <div class="resultado-cabecera"><span class="etiqueta-resultado">Publicación enviada</span><span id="resultado-http" class="insignia"></span></div>
+          <h2 id="resultado-titulo">Respuesta recibida</h2>
+          <dl>
+            <div class="dato-id"><dt>Identificador</dt><dd id="resultado-id"></dd></div>
+            <div><dt>Título</dt><dd id="resultado-titulo-texto" class="titulo-publicado"></dd></div>
+            <div><dt>Contenido</dt><dd id="resultado-contenido"></dd></div>
+          </dl>
+        </div>
+      </div>
+    </section>
+
+    <p id="estado" class="estado" role="status" aria-live="polite" aria-atomic="true">Completa el formulario para publicar.</p>
+    <footer class="nota"><p>JSONPlaceholder simula la creación de publicaciones.<br>Los mensajes no se guardan permanentemente.</p></footer>
+  </main>
+
+  <nav class="navegacion" aria-label="Secciones del publicador">
+    <div class="pestanas" role="tablist" aria-label="Publicación">
+      <button id="tab-redactar" class="pestana" type="button" role="tab" aria-selected="true" aria-controls="panel-redactar" tabindex="0">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m15 4 5 5M5 19l4-1L20 7a2 2 0 0 0-3-3L6 15l-1 4ZM4 22h16"/></svg><span>Redactar</span>
+      </button>
+      <button id="tab-respuesta" class="pestana" type="button" role="tab" aria-selected="false" aria-controls="panel-respuesta" tabindex="-1">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 3h14a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H8l-5 3V5a2 2 0 0 1 2-2Z"/><path d="M8 8h8M8 12h5"/></svg><span>Respuesta</span>
+      </button>
+    </div>
+  </nav>
+</body>
+</html>
